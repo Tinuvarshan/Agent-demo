@@ -1,0 +1,240 @@
+openapi: 3.0.3
+
+info:
+  title: Agent Demo API
+  description: Sample API for Postman API Catalog integration
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+
+paths:
+  /health:
+    get:
+      summary: Check API health
+      operationId: getHealth
+      security: []
+      responses:
+        "200":
+          description: API is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: UP
+                  service:
+                    type: string
+                    example: Agent Demo API
+
+  /api/users:
+    get:
+      summary: Get all users
+      operationId: getUsers
+      security: []
+      responses:
+        "200":
+          description: List of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+
+    post:
+      summary: Create a user
+      operationId: createUser
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUserRequest"
+      responses:
+        "201":
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Invalid request
+
+  /api/users/{id}:
+    get:
+      summary: Get a user by ID
+      operationId: getUserById
+      security: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1
+      responses:
+        "200":
+          description: User found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "404":
+          description: User not found
+
+  /api/orders:
+    get:
+      summary: Get all orders
+      operationId: getOrders
+      security: []
+      responses:
+        "200":
+          description: List of orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Order"
+
+    post:
+      summary: Create an order
+      operationId: createOrder
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateOrderRequest"
+      responses:
+        "201":
+          description: Order created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        "400":
+          description: Invalid request
+
+  /api/orders/{id}:
+    get:
+      summary: Get an order by ID
+      operationId: getOrderById
+      security: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 101
+      responses:
+        "200":
+          description: Order found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        "404":
+          description: Order not found
+
+  /api/products:
+    get:
+      summary: Get all products
+      operationId: getProducts
+      security: []
+      responses:
+        "200":
+          description: List of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+
+  /api/simulate-error:
+    get:
+      summary: Simulate an internal server error
+      operationId: simulateError
+      security: []
+      responses:
+        "500":
+          description: Simulated internal server error
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Alice
+        email:
+          type: string
+          format: email
+          example: alice@example.com
+
+    CreateUserRequest:
+      type: object
+      required:
+        - name
+        - email
+      properties:
+        name:
+          type: string
+          example: Charlie
+        email:
+          type: string
+          format: email
+          example: charlie@example.com
+
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 101
+        userId:
+          type: integer
+          example: 1
+        product:
+          type: string
+          example: Laptop
+        status:
+          type: string
+          example: COMPLETED
+
+    CreateOrderRequest:
+      type: object
+      required:
+        - userId
+        - product
+      properties:
+        userId:
+          type: integer
+          example: 1
+        product:
+          type: string
+          example: Laptop
+
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Laptop
+        price:
+          type: number
+          example: 75000
