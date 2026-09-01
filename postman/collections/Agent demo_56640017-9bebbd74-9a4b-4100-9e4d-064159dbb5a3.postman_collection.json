@@ -1,0 +1,199 @@
+{
+  "info": {
+    "_postman_id": "9bebbd74-9a4b-4100-9e4d-064159dbb5a3",
+    "name": "Agent demo",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "id": "f7f6d899-62da-454f-a063-ff3c1f26a918",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:60227/health",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "60227",
+          "path": [
+            "health"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Users",
+      "id": "a799ebd7-781e-42e6-b96d-0f20f76f505b",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:60227/api/users",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "60227",
+          "path": [
+            "api",
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "User by ID",
+      "id": "76734916-cc10-4e2c-aa7f-700639e24968",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:60227/api/users/1",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "60227",
+          "path": [
+            "api",
+            "users",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Orders",
+      "id": "43a92749-a5f9-4bb1-a65d-1bb3deec1fb6",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:60227/api/orders",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "60227",
+          "path": [
+            "api",
+            "orders"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Orders By ID",
+      "id": "918299a0-d78f-4539-be26-7f7a33910be6",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:60227/api/orders/101",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "60227",
+          "path": [
+            "api",
+            "orders",
+            "101"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Products",
+      "id": "32a1bbc8-b5ce-4111-97c2-acf64439e3ad",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:60227/api/products",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "60227",
+          "path": [
+            "api",
+            "products"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Simulate error",
+      "id": "544ede16-2e86-42be-90c0-fa4519790a89",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:60227/api/simulate-error",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "60227",
+          "path": [
+            "api",
+            "simulate-error"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

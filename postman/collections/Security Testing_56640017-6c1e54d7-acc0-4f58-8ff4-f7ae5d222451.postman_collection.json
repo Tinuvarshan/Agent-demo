@@ -1,0 +1,34 @@
+{
+  "info": {
+    "_postman_id": "6c1e54d7-acc0-4f58-8ff4-f7ae5d222451",
+    "name": "Security Testing",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "New Request",
+      "id": "d5106984-2239-426f-b12d-d990ed3c9aca",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://192.168.10.40/aug27",
+          "protocol": "https",
+          "host": [
+            "192",
+            "168",
+            "10",
+            "40"
+          ],
+          "path": [
+            "aug27"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

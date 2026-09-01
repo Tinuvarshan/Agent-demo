@@ -1,0 +1,495 @@
+{
+  "info": {
+    "_postman_id": "738d8b93-21d3-4fe8-919f-e51e7abd96c3",
+    "name": "test sample 35 server main Copy",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Update User",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "id": "3a6e3072-d25c-486b-866c-481b40cbbbe2"
+          }
+        }
+      ],
+      "id": "a4c8cf7d-9be8-4022-9e86-c3b227b698b1",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "SOAPAction",
+            "value": "urn:UDS.UpdateUser"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:msgs=\"http://ws.arcot.com/ArcotUserRegistrySvc/1.0/msgs\" xmlns:ns=\"http://ws.arcot.com/UserSchema/1.0\">\r\n<soap:Header/>\r\n<soap:Body>\r\n<msgs:updateUserRequest>\r\n<msgs:userDetailsEx>\r\n<ns:userId>\r\n<ns:orgName>testbob</ns:orgName>\r\n<ns:userName>test1</ns:userName>\r\n</ns:userId>\r\n<ns:emailId qualifier=\"emailid\">jaya@gmail.com</ns:emailId>\r\n<ns:telephoneNumber qualifier=\"telephone\">9487378687</ns:telephoneNumber>\r\n<ns:firstName>jaya</ns:firstName>\r\n<ns:lastName>subha</ns:lastName>\r\n</msgs:userDetailsEx>\r\n</msgs:updateUserRequest>\r\n</soap:Body>\r\n</soap:Envelope>"
+        },
+        "url": {
+          "raw": "http://192.168.10.35:7001/arcotuds/services/ArcotUserRegistrySvc",
+          "protocol": "http",
+          "host": [
+            "192",
+            "168",
+            "10",
+            "35"
+          ],
+          "port": "7001",
+          "path": [
+            "arcotuds",
+            "services",
+            "ArcotUserRegistrySvc"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Risk Evaluate",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "id": "682577f2-ca94-4860-a00b-ed3e20f20f07"
+          }
+        }
+      ],
+      "id": "0d9ab175-7284-456a-a263-c145499f5969",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/xml"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:wsdl=\"http://ws.arcot.com/RiskFortEvaluateRiskAPI/3.0/wsdl\">\r\n<soapenv:Header/>\r\n<soapenv:Body>\r\n<wsdl:EvaluateRiskRequest>\r\n<wsdl:locationContext>\r\n<wsdl:clientIPAddress>1.2.170.60</wsdl:clientIPAddress>\r\n</wsdl:locationContext>\r\n<wsdl:userContext>\r\n<wsdl:orgName>testbob</wsdl:orgName>\r\n<wsdl:userName>test1</wsdl:userName>\r\n</wsdl:userContext>\r\n</wsdl:EvaluateRiskRequest>\r\n</soapenv:Body>\r\n</soapenv:Envelope>"
+        },
+        "url": {
+          "raw": "http://192.168.10.35:7778/services/RiskFortEvaluateRiskSvc",
+          "protocol": "http",
+          "host": [
+            "192",
+            "168",
+            "10",
+            "35"
+          ],
+          "port": "7778",
+          "path": [
+            "services",
+            "RiskFortEvaluateRiskSvc"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Issuance OTP",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let response = pm.response.text();\r",
+              " \r",
+              "console.log(\"===== SOAP RESPONSE =====\");\r",
+              "console.log(response);\r",
+              " \r",
+              "let otpMatch = response.match(/<.*?:otp>(.*?)<\\/.*?:otp>/);\r",
+              " \r",
+              "if (otpMatch) {\r",
+              "    let otp = otpMatch[1].trim();\r",
+              " \r",
+              "    console.log(\"Extracted OTP:\", otp);\r",
+              " \r",
+              "    pm.collectionVariables.set(\"otp\", otp);\r",
+              " \r",
+              "    console.log(\"Stored OTP:\", pm.collectionVariables.get(\"otp\"));\r",
+              " \r",
+              "    pm.test(\"OTP extracted successfully\", function () {\r",
+              "        pm.expect(otp).to.not.be.empty;\r",
+              "    });\r",
+              "} else {\r",
+              "    console.log(\"OTP NOT FOUND\");\r",
+              "}\r",
+              " "
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "id": "92642044-1ad4-4ce8-848f-b95b52e45173"
+          }
+        }
+      ],
+      "id": "e427dbc4-4fbc-4cf4-a291-40364e1c921b",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/xml"
+          },
+          {
+            "key": "SOAPAction",
+            "value": "urn:CreateCredential"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:msgs=\"http://ws.arcot.com/WebFortIssuanceAPI/7.0/msgs\" xmlns:xsd=\"http://ws.arcot.com/WebFortCommonAPI/7.0/xsd\" xmlns:xsd1=\"http://ws.arcot.com/WebFortIssuanceAPI/7.0/xsd\">\r\n    <soap:Header/>\r\n    <soap:Body>\r\n        <msgs:CredentialRequest>\r\n            <msgs:userName>test1</msgs:userName>\r\n            <msgs:orgName>testbob</msgs:orgName>\r\n            <msgs:otpInput>\r\n                <xsd1:profileName>COMMON_OTP</xsd1:profileName>\r\n            </msgs:otpInput>\r\n        </msgs:CredentialRequest>\r\n    </soap:Body>\r\n</soap:Envelope>"
+        },
+        "url": {
+          "raw": "http://192.168.10.35:9744/services/WebFortIssuanceSvc",
+          "protocol": "http",
+          "host": [
+            "192",
+            "168",
+            "10",
+            "35"
+          ],
+          "port": "9744",
+          "path": [
+            "services",
+            "WebFortIssuanceSvc"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Verify OTP",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "id": "aba66d11-afd2-4c65-9f02-875661cd9482"
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "id": "ac7c3d16-5b76-4752-8493-9f86a348aa5e"
+          }
+        }
+      ],
+      "id": "543820cb-6ad0-4f1d-8d52-baaeaa438e70",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "SOAPAction",
+            "value": "urn:VerifyOTP",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "<soapenv:Envelope xmlns:soapenv=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:msgs=\"http://ws.arcot.com/WebFortAuthAPI/7.0/msgs\" xmlns:xsd=\"http://ws.arcot.com/WebFortCommonAPI/7.0/xsd\">\r\n   <soapenv:Header/>\r\n   <soapenv:Body>\r\n      <msgs:VerifyOTP>\r\n         <msgs:userName>test1</msgs:userName>\r\n         <msgs:orgName>testbob</msgs:orgName>\r\n         <msgs:otp>{{otp}}</msgs:otp>\r\n         <msgs:additionalInput>\r\n            <xsd:pairs>\r\n               <xsd:name>AR_WF_AUTH_POLICY</xsd:name>\r\n               <xsd:value>COMMON_OTP_POLICY</xsd:value>\r\n            </xsd:pairs>\r\n         </msgs:additionalInput>\r\n      </msgs:VerifyOTP>\r\n   </soapenv:Body>\r\n</soapenv:Envelope>",
+          "options": {
+            "raw": {
+              "language": "xml"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://192.168.10.35:9744/services/WebFortAuthSvc",
+          "protocol": "http",
+          "host": [
+            "192",
+            "168",
+            "10",
+            "35"
+          ],
+          "port": "9744",
+          "path": [
+            "services",
+            "WebFortAuthSvc"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "API Performance Report",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.variables.set(\r",
+              "    \"apiTimings\",\r",
+              "    pm.collectionVariables.get(\"apiTimings\")\r",
+              ");\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "id": "91067aec-432e-4ee7-92e7-517819b29028"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let report = JSON.parse(pm.collectionVariables.get(\"apiTimings\") || \"{}\");\r",
+              "\r",
+              "pm.globals.set(\"performance35\", JSON.stringify({\r",
+              "    serverName: \"192.168.10.35\",\r",
+              "    results: report\r",
+              "}));\r",
+              "\r",
+              "pm.globals.set(\r",
+              "    \"analytics35\",\r",
+              "    pm.collectionVariables.get(\"analytics\")\r",
+              ");\r",
+              "\r",
+              "console.log(\"Analytics35 Saved\");\r",
+              "console.log(pm.globals.get(\"analytics35\"));\r",
+              "\r",
+              "console.log(\"Performance35 Saved\");\r",
+              "console.log(pm.globals.get(\"performance35\"));\r",
+              "\r",
+              "Object.keys(report).forEach(api => {\r",
+              "\r",
+              "    pm.test(`${api} - Avg ${report[api].averageTime} ms`, function () {\r",
+              "        pm.expect(true).to.be.true;\r",
+              "    });\r",
+              "\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "id": "d74e80b2-9bd6-4ace-a92f-6701bc15ef3c"
+          }
+        }
+      ],
+      "id": "01824af4-9561-41d1-b49a-1e8d4fdea0a1",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"serverName\": \"192.168.10.35\",\r\n    \"results\": {{apiTimings}}\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://postman-echo.com/post",
+          "protocol": "https",
+          "host": [
+            "postman-echo",
+            "com"
+          ],
+          "path": [
+            "post"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "requests": {},
+        "exec": [
+          "console.log(\r",
+          "    \"Iteration:\", pm.info.iteration,\r",
+          "    \"Request:\", pm.info.requestName\r",
+          ");\r",
+          "\r",
+          "// Clear timings ONLY once\r",
+          "if (\r",
+          "    pm.info.iteration === 0 &&\r",
+          "    pm.info.requestName === \"Update User\"\r",
+          ") {\r",
+          "    pm.collectionVariables.set(\"apiTimings\", \"{}\");\r",
+          "    console.log(\"apiTimings cleared.\");\r",
+          "}\r",
+          "\r",
+          "if (\r",
+          "    pm.info.iteration === 0 &&\r",
+          "    pm.info.requestName === \"Update User\"\r",
+          ") {\r",
+          "    pm.collectionVariables.set(\"analytics\", \"[]\");\r",
+          "}"
+        ],
+        "id": "87e2d7df-467e-4ccf-9b43-d4595eb82572"
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "requests": {},
+        "exec": [
+          "const ignoreRequests = [\r",
+          "    \"API Performance Report\",\r",
+          "    \"Compare Performance\"\r",
+          "];\r",
+          "\r",
+          "if (ignoreRequests.includes(pm.info.requestName)) {\r",
+          "    return;\r",
+          "}\r",
+          "\r",
+          "let apiTimings = JSON.parse(pm.collectionVariables.get(\"apiTimings\") || \"{}\");\r",
+          "\r",
+          "let analytics =\r",
+          "JSON.parse(pm.collectionVariables.get(\"analytics\") || \"[]\");\r",
+          "\r",
+          "const api = pm.info.requestName;\r",
+          "\r",
+          "if (!apiTimings[api]) {\r",
+          "\r",
+          "    apiTimings[api] = {\r",
+          "\r",
+          "        runs: 0,\r",
+          "        totalTime: 0,\r",
+          "        averageTime: 0,\r",
+          "        minTime: Number.MAX_SAFE_INTEGER,\r",
+          "        maxTime: 0,\r",
+          "        latestTime: 0,\r",
+          "        statusCode: 0,\r",
+          "\r",
+          "        minTimestamp: \"\",\r",
+          "        maxTimestamp: \"\"\r",
+          "\r",
+          "    };\r",
+          "\r",
+          "}\r",
+          "\r",
+          "const current = pm.response.responseTime;\r",
+          "\r",
+          "apiTimings[api].runs++;\r",
+          "\r",
+          "apiTimings[api].totalTime += current;\r",
+          "\r",
+          "apiTimings[api].latestTime = current;\r",
+          "\r",
+          "analytics.push({\r",
+          "\r",
+          "    api: api,\r",
+          "\r",
+          "    timestamp: Date.now(),\r",
+          "\r",
+          "    responseTime: current,\r",
+          "\r",
+          "    statusCode: pm.response.code,\r",
+          "\r",
+          "    success: pm.response.code >= 200 && pm.response.code < 300,\r",
+          "    \r",
+          "    server: pm.environment.get(\"serverName\") || \"\"\r",
+          "\r",
+          "});\r",
+          "\r",
+          "apiTimings[api].statusCode = pm.response.code;\r",
+          "\r",
+          "if (current < apiTimings[api].minTime) {\r",
+          "\r",
+          "    apiTimings[api].minTime = current;\r",
+          "    apiTimings[api].minTimestamp = new Date().toLocaleString();\r",
+          "\r",
+          "}\r",
+          "\r",
+          "if (current > apiTimings[api].maxTime) {\r",
+          "\r",
+          "    apiTimings[api].maxTime = current;\r",
+          "    apiTimings[api].maxTimestamp = new Date().toLocaleString();\r",
+          "\r",
+          "}\r",
+          "\r",
+          "apiTimings[api].averageTime =\r",
+          "Math.round(\r",
+          "    apiTimings[api].totalTime /\r",
+          "    apiTimings[api].runs\r",
+          ");\r",
+          "\r",
+          "pm.collectionVariables.set(\r",
+          "    \"apiTimings\",\r",
+          "    JSON.stringify(apiTimings)\r",
+          ");\r",
+          "\r",
+          "pm.collectionVariables.set(\r",
+          "\"analytics\",\r",
+          "JSON.stringify(analytics)\r",
+          ");\r",
+          ""
+        ],
+        "id": "e04f8f37-98f2-47c7-b931-370254d8ea03"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "otp",
+      "value": ""
+    },
+    {
+      "key": "apiTimings",
+      "value": ""
+    },
+    {
+      "key": "analytics",
+      "value": ""
+    }
+  ]
+}

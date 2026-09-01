@@ -1,0 +1,26 @@
+{
+  "workspace": {
+    "id": "82709c6d-2747-42ea-8b9b-5a2e98b89f3d"
+  },
+  "entities": {
+    "collections": [
+      "../postman/collections/Performance Collection_56640017-0fd98e9c-38b1-47bf-8ccc-916abaf31640.postman_collection.json",
+      "../postman/collections/ELK API Collection_56640017-25f9d229-037d-4f32-b912-5481d9712347.postman_collection.json",
+      "../postman/collections/Threat Protection_56640017-3745af62-a8ab-407c-aa7f-d5ce4232599d.postman_collection.json",
+      "../postman/collections/default-agent-demo-api_56640017-37f10002-7834-446b-93cc-1bb030f3ca1a.postman_collection.json",
+      "../postman/collections/default-agent-demo-api_56640017-4247ed32-95f1-490f-bb1d-86e7639162c8.postman_collection.json",
+      "../postman/collections/Security Testing_56640017-6c1e54d7-acc0-4f58-8ff4-f7ae5d222451.postman_collection.json",
+      "../postman/collections/test sample 35 server main Copy_56640017-738d8b93-21d3-4fe8-919f-e51e7abd96c3.postman_collection.json",
+      "../postman/collections/test sample 43 server main Copy_56640017-9aa5eea9-68db-4908-b9f8-5cdb7b80f45b.postman_collection.json",
+      "../postman/collections/Agent demo_56640017-9bebbd74-9a4b-4100-9e4d-064159dbb5a3.postman_collection.json",
+      "../postman/collections/default-agent-demo-api_56640017-ba86549b-ee4d-42b5-8913-f848159c5046.postman_collection.json"
+    ],
+    "environments": [
+      "../postman/environments/Test_56640017-0ff65d26-8324-42c1-bfe0-07b7c1f4e90e.postman_environment.json",
+      "../postman/environments/Local_56640017-7f8c9553-59a5-412e-a38b-81fcc9dea233.postman_environment.json"
+    ],
+    "specs": [],
+    "flows": [],
+    "globals": []
+  }
+}
