@@ -1,0 +1,1260 @@
+{
+  "info": {
+    "_postman_id": "25f9d229-037d-4f32-b912-5481d9712347",
+    "name": "ELK API Collection",
+    "description": "A centralized Postman collection for managing, validating, and monitoring APIs. Execution results are automatically sent to the ELK Stack for analysis and visualization.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "User Management",
+      "item": [
+        {
+          "name": "Create User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "4775e27f-9ad4-4fa4-be8c-3927f409af8a",
+                "exec": [
+                  "pm.test(\"Status code is 201\", function(){\r",
+                  "\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "\r",
+                  "});\r",
+                  "\r",
+                  "let jsonData = pm.response.json();\r",
+                  "\r",
+                  "pm.environment.set(\"user_id\", jsonData.userId);\r",
+                  "\r",
+                  "pm.test(\"User created successfully\", function(){\r",
+                  "\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"User ID generated\", function(){\r",
+                  "\r",
+                  "    let data = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(data).to.have.property(\"userId\");\r",
+                  "\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"SLA Violation\", function () {\r",
+                  "\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                  "\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "36d277c9-3020-4844-9a02-8e3efc2b3738",
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "id": "eee3f47a-2098-440b-b536-66c73b6f9ff0",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"tinu\",\r\n  \"email\": \"test@example.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/users",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "users"
+              ]
+            },
+            "description": "Create a new user and store details in MySQL database."
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Users",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "c68be295-d2bb-4fbf-8bf4-d64f8b5f74d1",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"SLA Violation\", function () {\r",
+                  "\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                  "\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "468cdf2d-81d7-4112-87a2-128c0bd676ab",
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "id": "dcfd7971-48fd-4e3e-a2a6-2f9b7c87a4c5",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/users",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get User By ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "ccfc7db8-5e0c-4061-a515-860c8ae934a3",
+                "exec": [
+                  "pm.test(\"User found\", function(){\r",
+                  "\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"User has ID\", function () {\r",
+                  "\r",
+                  "    let data = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(data.user.id).to.exist;\r",
+                  "\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"SLA Violation\", function () {\r",
+                  "\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                  "\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "fab71295-25d3-4bc9-8036-886b28a17f12",
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "id": "d422f74f-f29a-4c68-aea4-c0389573640f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/users/{{user_id}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "users",
+                "{{user_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "978ee4cc-fdf0-4410-a774-2b5436cb5ac1",
+                "exec": [
+                  "pm.test(\"Update successful\", function(){\r",
+                  "\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Update message received\", function(){\r",
+                  "\r",
+                  "    let data = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(data.message)\r",
+                  "    .to.eql(\"User updated successfully\");\r",
+                  "\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"SLA Violation\", function () {\r",
+                  "\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                  "\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "3321cdd3-7b05-4a37-8ecf-39b7f9e68bad",
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "id": "1859b676-57a2-429a-9abd-7de9a23c5528",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"ajay\",\r\n  \"email\": \"test@example.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/users/{{user_id}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "users",
+                "{{user_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "3b4fef4f-6ee8-48db-9f0f-ff95395c3f91",
+                "exec": [
+                  "pm.test(\"Delete successful\", function(){\r",
+                  "\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Delete message received\", function(){\r",
+                  "\r",
+                  "    let data = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(data.message)\r",
+                  "    .to.eql(\"User deleted successfully\");\r",
+                  "\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"SLA Violation\", function () {\r",
+                  "\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                  "\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "acce6575-8ef4-4b9f-a3bd-4d5071ab465d",
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "id": "dda2db7f-f2d6-491f-abfb-688aed890041",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\"name\":\"Ajay\",\r\n\"email\":\"ajay@test.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/users/{{user_id}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "users",
+                "{{user_id}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "fb0545f1-b590-4ef2-b0d0-f8c12e271365"
+    },
+    {
+      "name": "Order Management",
+      "item": [
+        {
+          "name": "Create Order",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "4d52effd-b8e6-40a6-b876-9a1db3679342",
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {\r",
+                  "\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"SLA Violation\", function () {\r",
+                  "\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                  "\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "7a9b7390-24dc-4220-b368-11bc53a7b2c6",
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "id": "890db6e0-ed2e-4b98-b3f7-33c289737715",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"customerName\":\"John\",\r\n    \"productName\":\"Laptop\",\r\n    \"amount\":50000\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/orders",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Orders",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "d38f45e4-d3fd-4b0e-8eec-d26af5644ba9",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"SLA Violation\", function () {\r",
+                  "\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                  "\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "ee6a59e0-072c-43ff-935b-755716c283a5",
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "id": "a199a565-6420-4fb1-b291-ee0f1e59f4e6",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/orders",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Orders By ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "5184bb46-0543-4423-afeb-4d5a6c611247",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"SLA Violation\", function () {\r",
+                  "\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                  "\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "0f427ee4-ad41-4e1b-be52-11a943f5c066",
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "id": "bd9893f1-0383-496b-8849-5a14821d6b69",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/orders/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "orders",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Order Status",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "f345ff7a-09ad-4263-966f-419b2906c6c5",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"SLA Violation\", function () {\r",
+                  "\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                  "\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "ef89abab-1c7d-4217-aa69-9c19eb594c2c",
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "id": "f2354636-44ea-4d35-bafe-2f1ab2dd1c74",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n \"status\":\"DELIVERED\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/orders/2/status",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "orders",
+                "2",
+                "status"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "91a60c68-4f91-4607-8955-e68a89929344"
+    },
+    {
+      "name": "Version 1 APIs",
+      "item": [
+        {
+          "name": "V1 - Get User By ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "303e0c6f-20ee-4844-a962-5286212b2c99",
+                "exec": [
+                  "pm.test(\"User found\", function(){\r",
+                  "\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"SLA Violation\", function () {\r",
+                  "\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+                  "\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "546900c7-c4db-48bf-85f3-4cec1560c7cb",
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "id": "ef6bd39f-bfdb-43c2-88c4-e22d50419c30",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/v1/users/{{user_id}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "{{user_id}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "6f1e592b-fde7-4d86-8443-a6250a2d67ba",
+      "description": "⚠️ Deprecated APIs\n\nThis folder contains Version 1 (V1) API endpoints that are no longer actively maintained and have been deprecated. These endpoints are kept for reference and backward compatibility purposes only.\n\n**Current endpoints:**\n- **V1 - Get User By ID**: Retrieves a user by their ID via the legacy `/api/v1/users/:id` route.\n\n> **Note:** It is recommended to migrate to the latest API versions available in the User Management folder. Deprecated endpoints may be removed in future releases."
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "id": "f7849d41-2546-4b59-9d08-20e81a74e61e",
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          "// ============================================================\r",
+          "// POSTMAN API SECURITY PRE-VALIDATION + ELK LOGGING\r",
+          "// ============================================================\r",
+          "\r",
+          "\r",
+          "\r",
+          "// --------------------------------------------------------\r",
+          "// SQL Injection-like Input\r",
+          "//\r",
+          "// XSS-like Input\r",
+          "//\r",
+          "// Path Traversal\r",
+          "//\r",
+          "// Command Injection-like Input\r",
+          "//\r",
+          "// HTML Event Injection\r",
+          "//\r",
+          "// Encoded Script Pattern\r",
+          "//\r",
+          "// Excessively Large Request Body\r",
+          "//\r",
+          "// --------------------------------------------------------\r",
+          "\r",
+          "\r",
+          "// ============================================================\r",
+          "// CONFIGURATION\r",
+          "// ============================================================\r",
+          "\r",
+          "const SECURITY_ENABLED = true;\r",
+          "\r",
+          "// Your existing ELK / Logstash endpoint\r",
+          "const ELK_ENDPOINT =\r",
+          "    \"http://localhost:5000\";\r",
+          "\r",
+          "\r",
+          "// ============================================================\r",
+          "// REQUEST INFORMATION\r",
+          "// ============================================================\r",
+          "\r",
+          "const requestName =\r",
+          "    pm.info.requestName || \"Unknown Request\";\r",
+          "\r",
+          "const collectionName =\r",
+          "    pm.info.collectionName || \"Unknown Collection\";\r",
+          "\r",
+          "const method =\r",
+          "    pm.request.method || \"\";\r",
+          "\r",
+          "const requestUrl =\r",
+          "    pm.request.url\r",
+          "        ? pm.request.url.toString()\r",
+          "        : \"\";\r",
+          "\r",
+          "\r",
+          "// ============================================================\r",
+          "// READ REQUEST BODY\r",
+          "// ============================================================\r",
+          "\r",
+          "let requestBody = \"\";\r",
+          "\r",
+          "if (pm.request.body) {\r",
+          "\r",
+          "    // --------------------------------------------------------\r",
+          "    // RAW BODY\r",
+          "    // --------------------------------------------------------\r",
+          "\r",
+          "    if (pm.request.body.mode === \"raw\") {\r",
+          "\r",
+          "        requestBody =\r",
+          "            pm.request.body.raw || \"\";\r",
+          "\r",
+          "    }\r",
+          "\r",
+          "    // --------------------------------------------------------\r",
+          "    // URL ENCODED BODY\r",
+          "    // --------------------------------------------------------\r",
+          "\r",
+          "    else if (pm.request.body.mode === \"urlencoded\") {\r",
+          "\r",
+          "        try {\r",
+          "\r",
+          "            requestBody =\r",
+          "                JSON.stringify(\r",
+          "                    pm.request.body.urlencoded.toObject()\r",
+          "                );\r",
+          "\r",
+          "        } catch (error) {\r",
+          "\r",
+          "            requestBody = \"\";\r",
+          "\r",
+          "        }\r",
+          "    }\r",
+          "\r",
+          "    // --------------------------------------------------------\r",
+          "    // FORM DATA\r",
+          "    // --------------------------------------------------------\r",
+          "\r",
+          "    else if (pm.request.body.mode === \"formdata\") {\r",
+          "\r",
+          "        try {\r",
+          "\r",
+          "            requestBody =\r",
+          "                JSON.stringify(\r",
+          "                    pm.request.body.formdata.toObject()\r",
+          "                );\r",
+          "\r",
+          "        } catch (error) {\r",
+          "\r",
+          "            requestBody = \"\";\r",
+          "\r",
+          "        }\r",
+          "    }\r",
+          "}\r",
+          "\r",
+          "\r",
+          "// ============================================================\r",
+          "// READ REQUEST HEADERS\r",
+          "// ============================================================\r",
+          "//\r",
+          "// Sensitive headers are REDACTED so that secrets are never\r",
+          "// sent to ELK.\r",
+          "// ============================================================\r",
+          "\r",
+          "let requestHeaders = {};\r",
+          "\r",
+          "pm.request.headers.each(function (header) {\r",
+          "\r",
+          "    const name =\r",
+          "        header.key.toLowerCase();\r",
+          "\r",
+          "    if (\r",
+          "        name === \"authorization\" ||\r",
+          "        name === \"x-api-key\" ||\r",
+          "        name === \"api-key\" ||\r",
+          "        name === \"cookie\" ||\r",
+          "        name === \"set-cookie\"\r",
+          "    ) {\r",
+          "\r",
+          "        requestHeaders[header.key] =\r",
+          "            \"[REDACTED]\";\r",
+          "\r",
+          "    } else {\r",
+          "\r",
+          "        requestHeaders[header.key] =\r",
+          "            header.value;\r",
+          "    }\r",
+          "});\r",
+          "\r",
+          "\r",
+          "// ============================================================\r",
+          "// CREATE SECURITY SCAN INPUT\r",
+          "// ============================================================\r",
+          "//\r",
+          "// The scanner checks:\r",
+          "// - URL\r",
+          "// - Request body\r",
+          "// - Headers\r",
+          "//\r",
+          "// ============================================================\r",
+          "\r",
+          "const securityInput = [\r",
+          "\r",
+          "    requestUrl,\r",
+          "\r",
+          "    requestBody,\r",
+          "\r",
+          "    JSON.stringify(requestHeaders)\r",
+          "\r",
+          "].join(\"\\n\");\r",
+          "\r",
+          "\r",
+          "// ============================================================\r",
+          "// SECURITY RULES\r",
+          "// ============================================================\r",
+          "//\r",
+          "\r",
+          "const securityRules = [\r",
+          "\r",
+          "    // --------------------------------------------------------\r",
+          "    // SQL INJECTION-LIKE INPUT\r",
+          "    // --------------------------------------------------------\r",
+          "\r",
+          "    {\r",
+          "        name: \"SQL Injection Input\",\r",
+          "\r",
+          "        pattern:\r",
+          "            /(\\bunion\\b[\\s\\S]*\\bselect\\b)|(\\bor\\b\\s+['\"]?\\w+['\"]?\\s*=\\s*['\"]?\\w+)|(--\\s*$)|(['\"]\\s*or\\s*['\"]?1['\"]?\\s*=\\s*['\"]?1)/i\r",
+          "    },\r",
+          "\r",
+          "\r",
+          "    // --------------------------------------------------------\r",
+          "    // XSS-LIKE INPUT\r",
+          "    // --------------------------------------------------------\r",
+          "\r",
+          "    {\r",
+          "        name: \"XSS Input\",\r",
+          "\r",
+          "        pattern:\r",
+          "            /<\\s*script\\b|<\\/\\s*script\\s*>|javascript\\s*:/i\r",
+          "    },\r",
+          "\r",
+          "\r",
+          "    // --------------------------------------------------------\r",
+          "    // PATH TRAVERSAL\r",
+          "    // --------------------------------------------------------\r",
+          "\r",
+          "    {\r",
+          "        name: \"Path Traversal\",\r",
+          "\r",
+          "        pattern:\r",
+          "            /\\.\\.[\\/\\\\]/\r",
+          "    },\r",
+          "\r",
+          "\r",
+          "    // --------------------------------------------------------\r",
+          "    // COMMAND INJECTION-LIKE INPUT\r",
+          "    // --------------------------------------------------------\r",
+          "\r",
+          "    {\r",
+          "        name: \"Command Injection Input\",\r",
+          "\r",
+          "        pattern:\r",
+          "            /(?:^|[;&|])\\s*(?:bash|sh|cmd|powershell|curl|wget)\\b/i\r",
+          "    },\r",
+          "\r",
+          "\r",
+          "    // --------------------------------------------------------\r",
+          "    // HTML EVENT INJECTION\r",
+          "    // --------------------------------------------------------\r",
+          "\r",
+          "    {\r",
+          "        name: \"HTML Event Injection\",\r",
+          "\r",
+          "        pattern:\r",
+          "            /\\bon(?:error|load|click|mouseover)\\s*=/i\r",
+          "    },\r",
+          "\r",
+          "\r",
+          "    // --------------------------------------------------------\r",
+          "    // ENCODED SCRIPT\r",
+          "    // --------------------------------------------------------\r",
+          "\r",
+          "    {\r",
+          "        name: \"Encoded Script Pattern\",\r",
+          "\r",
+          "        pattern:\r",
+          "            /%3c\\s*script|%3cscript|%3c%2fscript/i\r",
+          "    }\r",
+          "\r",
+          "];\r",
+          "\r",
+          "\r",
+          "// ============================================================\r",
+          "// LARGE REQUEST BODY CHECK\r",
+          "// ============================================================\r",
+          "\r",
+          "const MAX_BODY_SIZE = 100000;\r",
+          "\r",
+          "if (requestBody.length > MAX_BODY_SIZE) {\r",
+          "\r",
+          "    securityRules.push({\r",
+          "\r",
+          "        name: \"Excessively Large Request Body\",\r",
+          "\r",
+          "        pattern: /[\\s\\S]/\r",
+          "\r",
+          "    });\r",
+          "}\r",
+          "\r",
+          "\r",
+          "// ============================================================\r",
+          "// RUN SECURITY SCAN\r",
+          "// ============================================================\r",
+          "\r",
+          "let detectedThreat = null;\r",
+          "\r",
+          "for (const rule of securityRules) {\r",
+          "\r",
+          "    if (rule.pattern.test(securityInput)) {\r",
+          "\r",
+          "        detectedThreat = rule.name;\r",
+          "\r",
+          "        break;\r",
+          "    }\r",
+          "}\r",
+          "\r",
+          "\r",
+          "// ============================================================\r",
+          "// SECURITY VALIDATION DISABLED\r",
+          "// ============================================================\r",
+          "\r",
+          "if (!SECURITY_ENABLED) {\r",
+          "\r",
+          "    console.log(\r",
+          "        \"⚠️ Security validation is disabled.\"\r",
+          "    );\r",
+          "\r",
+          "}\r",
+          "\r",
+          "\r",
+          "// ============================================================\r",
+          "// SECURITY VALIDATION PASSED\r",
+          "// ============================================================\r",
+          "\r",
+          "else if (!detectedThreat) {\r",
+          "\r",
+          "    console.log(\r",
+          "        \"✅ SECURITY CHECK PASSED:\",\r",
+          "        requestName\r",
+          "    );\r",
+          "\r",
+          "}\r",
+          "\r",
+          "// ============================================================\r",
+          "// SECURITY THREAT DETECTED\r",
+          "// ============================================================\r",
+          "\r",
+          "if (SECURITY_ENABLED && detectedThreat) {\r",
+          "\r",
+          "    console.error(\r",
+          "        \"==============================================\"\r",
+          "    );\r",
+          "\r",
+          "    console.error(\r",
+          "        \"🚨 SECURITY THREAT DETECTED\"\r",
+          "    );\r",
+          "\r",
+          "    console.error(\r",
+          "        \"Request:\",\r",
+          "        requestName\r",
+          "    );\r",
+          "\r",
+          "    console.error(\r",
+          "        \"Method:\",\r",
+          "        method\r",
+          "    );\r",
+          "\r",
+          "    console.error(\r",
+          "        \"Threat:\",\r",
+          "        detectedThreat\r",
+          "    );\r",
+          "\r",
+          "    console.error(\r",
+          "        \"Action: REQUEST BLOCKED\"\r",
+          "    );\r",
+          "\r",
+          "    console.error(\r",
+          "        \"==============================================\"\r",
+          "    );\r",
+          "\r",
+          "\r",
+          "    // ========================================================\r",
+          "    // CREATE SECURITY EVENT\r",
+          "    // ========================================================\r",
+          "\r",
+          "    const securityEvent = {\r",
+          "\r",
+          "        eventType: \"API_SECURITY_THREAT\",\r",
+          "\r",
+          "        timestamp: new Date().toISOString(),\r",
+          "\r",
+          "        source: \"Postman\",\r",
+          "\r",
+          "        collection:\r",
+          "            pm.info.collectionName || \"Unknown Collection\",\r",
+          "\r",
+          "        apiName:\r",
+          "            pm.info.requestName || \"Unknown Request\",\r",
+          "\r",
+          "        method:\r",
+          "            pm.request.method,\r",
+          "\r",
+          "        apiUrl:\r",
+          "            pm.request.url.toString(),\r",
+          "\r",
+          "        threatType:\r",
+          "            detectedThreat,\r",
+          "\r",
+          "        action:\r",
+          "            \"BLOCKED\",\r",
+          "\r",
+          "        securityStatus:\r",
+          "            \"FAIL\"\r",
+          "    };\r",
+          "\r",
+          "\r",
+          "    // ========================================================\r",
+          "    // SEND SECURITY EVENT TO ELK\r",
+          "    // ========================================================\r",
+          "\r",
+          "    pm.sendRequest({\r",
+          "\r",
+          "        url:\r",
+          "            \"http://localhost:5000\",\r",
+          "\r",
+          "        method:\r",
+          "            \"POST\",\r",
+          "\r",
+          "        header: {\r",
+          "            \"Content-Type\": \"application/json\"\r",
+          "        },\r",
+          "\r",
+          "        body: {\r",
+          "\r",
+          "            mode: \"raw\",\r",
+          "\r",
+          "            raw:\r",
+          "                JSON.stringify(securityEvent)\r",
+          "        }\r",
+          "\r",
+          "    }, function (error, response) {\r",
+          "\r",
+          "        if (error) {\r",
+          "\r",
+          "            console.error(\r",
+          "                \"❌ Failed to send security event to ELK:\",\r",
+          "                error\r",
+          "            );\r",
+          "\r",
+          "        } else {\r",
+          "\r",
+          "            console.log(\r",
+          "                \"📊 Security event sent to ELK\"\r",
+          "            );\r",
+          "\r",
+          "            if (response) {\r",
+          "\r",
+          "                console.log(\r",
+          "                    \"ELK Response Status:\",\r",
+          "                    response.code\r",
+          "                );\r",
+          "            }\r",
+          "        }\r",
+          "\r",
+          "    });\r",
+          "\r",
+          "\r",
+          "    // ========================================================\r",
+          "    // BLOCK CURRENT REQUEST\r",
+          "    // ========================================================\r",
+          "\r",
+          "    pm.execution.skipRequest();\r",
+          "\r",
+          "    console.error(\r",
+          "        \"🛑 Request skipped because a security threat was detected.\"\r",
+          "    );\r",
+          "\r",
+          "    console.error(\r",
+          "        \"Request:\",\r",
+          "        pm.info.requestName\r",
+          "    );\r",
+          "\r",
+          "    console.error(\r",
+          "        \"Threat:\",\r",
+          "        detectedThreat\r",
+          "    );\r",
+          "\r",
+          "    console.error(\r",
+          "        \"Action: REQUEST BLOCKED\"\r",
+          "    );\r",
+          "\r",
+          "} // "
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "id": "331cd37b-5e29-4810-b602-1661a889f87d",
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          "const SLA_LIMIT = 1000;\r",
+          "let elkData = {\r",
+          "    apiName: pm.info.requestName,\r",
+          "    method: pm.request.method,\r",
+          "    apiUrl: pm.request.url.toString(),\r",
+          "    statusCode: pm.response.code,\r",
+          "    responseTime: pm.response.responseTime,\r",
+          "\r",
+          "    // Existing API Status\r",
+          "    status: pm.response.code < 400 ? \"PASS\" : \"FAIL\",\r",
+          "\r",
+          "    // New SLA Fields\r",
+          "    slaLimit: SLA_LIMIT,\r",
+          "    slaStatus: pm.response.responseTime < SLA_LIMIT ? \"PASS\" : \"FAIL\",\r",
+          "\r",
+          "    timestamp: new Date().toISOString()\r",
+          "};\r",
+          "\r",
+          "pm.sendRequest({\r",
+          "    url: \"http://localhost:5000\",\r",
+          "    method: \"POST\",\r",
+          "    header: {\r",
+          "        \"Content-Type\": \"application/json\"\r",
+          "    },\r",
+          "    body: {\r",
+          "        mode: \"raw\",\r",
+          "        raw: JSON.stringify(elkData)\r",
+          "    }\r",
+          "});"
+        ]
+      }
+    }
+  ]
+}

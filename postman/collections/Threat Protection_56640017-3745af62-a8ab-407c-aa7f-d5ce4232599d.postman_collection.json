@@ -1,0 +1,43 @@
+{
+  "info": {
+    "_postman_id": "3745af62-a8ab-407c-aa7f-d5ce4232599d",
+    "name": "Threat Protection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Gateway Threat Protection",
+      "id": "5a9dd0c6-a5e0-427f-9a36-2cc0869a5d36",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"tinu\",\r\n  \"email\": \"test@example.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://192.168.10.40/aug18",
+          "protocol": "https",
+          "host": [
+            "192",
+            "168",
+            "10",
+            "40"
+          ],
+          "path": [
+            "aug18"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
